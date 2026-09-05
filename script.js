@@ -39,6 +39,13 @@ const formMessage = document.getElementById('formMessage');
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
+  if (!offerField.value) {
+    formMessage.textContent = 'من فضلك اختاري عرض من فوق الأول قبل تأكيد الطلب.';
+    formMessage.className = 'form-message error';
+    document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
