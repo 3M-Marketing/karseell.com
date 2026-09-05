@@ -13,7 +13,7 @@
 
 <header class="site-header">
   <div class="wrap header-inner">
-    <span class="logo">Karseell</span>
+    <img src="assets/logo.png" alt="Karseell" class="logo-img">
     <a href="index.html" class="btn btn-small">الرئيسية</a>
   </div>
 </header>
@@ -27,7 +27,10 @@
     <div class="discount-box">
       <p class="discount-title">هدية ليكِ 🎁</p>
       <p class="discount-copy">خصم 15% على أي عملية شراء جديدة</p>
-      <div class="discount-code" id="discountCode">KARSEELL15</div>
+      <div class="discount-code-row">
+        <div class="discount-code" id="discountCode">KARSEELL15</div>
+        <button type="button" class="btn btn-outline btn-copy" id="copyCodeBtn">نسخ الكود</button>
+      </div>
       <p class="discount-expiry" id="discountExpiry"></p>
     </div>
 
@@ -49,6 +52,19 @@
   expiry.setDate(expiry.getDate() + 30);
   const formatted = expiry.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
   document.getElementById('discountExpiry').textContent = 'الكود صالح للاستخدام لحد ' + formatted;
+
+  // copy discount code to clipboard
+  const copyBtn = document.getElementById('copyCodeBtn');
+  const codeText = document.getElementById('discountCode').textContent.trim();
+  copyBtn.addEventListener('click', function () {
+    navigator.clipboard.writeText(codeText).then(function () {
+      const original = copyBtn.textContent;
+      copyBtn.textContent = 'تم النسخ ✓';
+      setTimeout(function () { copyBtn.textContent = original; }, 2000);
+    }).catch(function () {
+      copyBtn.textContent = 'انسخي الكود يدويًا: ' + codeText;
+    });
+  });
 </script>
 </body>
 </html>
