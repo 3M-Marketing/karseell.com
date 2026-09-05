@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karseell | تم استلام طلبك</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <span class="logo">Karseell</span>
+    <a href="index.html" class="btn btn-small">الرئيسية</a>
+  </div>
+</header>
+
+<section class="thankyou">
+  <div class="wrap thankyou-inner">
+    <div class="thankyou-check">✓</div>
+    <h1>تم استلام طلبك بنجاح!</h1>
+    <p class="thankyou-sub">هيتواصل معاكِ فريقنا خلال ساعات لتأكيد الطلب وتحديد ميعاد التوصيل.</p>
+
+    <div class="discount-box">
+      <p class="discount-title">هدية ليكِ 🎁</p>
+      <p class="discount-copy">خصم 15% على أي عملية شراء جديدة</p>
+      <div class="discount-code" id="discountCode">KARSEELL15</div>
+      <p class="discount-expiry" id="discountExpiry"></p>
+    </div>
+
+    <a href="index.html" class="btn btn-primary">رجوع للصفحة الرئيسية</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Karseell &copy; <span id="year"></span> — للتواصل والاستفسار عبر رسائل الصفحة</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // discount code is valid for 30 days from the moment the customer lands here (right after purchase)
+  const expiry = new Date();
+  expiry.setDate(expiry.getDate() + 30);
+  const formatted = expiry.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('discountExpiry').textContent = 'الكود صالح للاستخدام لحد ' + formatted;
+</script>
+</body>
+</html>
