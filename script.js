@@ -69,9 +69,8 @@ form.addEventListener('submit', function (e) {
 
   console.log('Order submitted:', data);
 
-  formMessage.textContent = 'تم استلام طلبك بنجاح، هنتواصل معاكِ قريبًا لتأكيد الطلب.';
-  formMessage.className = 'form-message success';
-  form.reset();
-  offerField.value = 'full';
-  selectedOfferLabel.textContent = offerLabels.full;
+  // save the order data locally in case you want to prefill/reference it on the thank-you page later
+  try { sessionStorage.setItem('karseellLastOrder', JSON.stringify(data)); } catch (err) {}
+
+  window.location.href = 'thankyou.html';
 });
