@@ -132,13 +132,17 @@ form.addEventListener('submit', function (e) {
     timestamp: new Date().toISOString()
   };
 
-  // TODO: replace this with a fetch() call to your Google Apps Script Web App URL
-  // once it's ready, e.g.:
-  //
-  // fetch('YOUR_GOOGLE_APPS_SCRIPT_URL', {
-  //   method: 'POST',
-  //   body: JSON.stringify(data)
-  // });
+  // send the order to the connected Google Sheet
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-LY4Fk0E2MIwbvVZ_F8axR1WuvDyejSHD64sW2WsRBRd-eZC0saxNm9PGRkP93EkKTA/exec';
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(data)
+  }).catch(function (err) {
+    console.error('Failed to send order to Google Sheet:', err);
+  });
 
   console.log('Order submitted:', data);
 
