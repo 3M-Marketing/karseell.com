@@ -13,6 +13,11 @@
 </head>
 <body>
 
+<!-- Promo Bar -->
+<div class="promo-bar">
+  خصومات حقيقية حتى 70% 🔥 وشحن مجاني للطلبات فوق 1000 جنيه
+</div>
+
 <!-- Header -->
 <header class="site-header">
   <div class="wrap header-inner">
@@ -24,25 +29,43 @@
 <!-- Hero -->
 <section class="hero">
   <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <p class="eyebrow">الأكثر طلبًا لعلاج تلف وتقصف الشعر</p>
-      <h1>شعرك يستاهل يرجع زي الأول... من غير قص ولا صالونات</h1>
-      <p class="hero-sub">ماسك Karseell بالكولاجين وخلاصة الماكا بيصلح التقصف والجفاف من أول استخدام، ويرجّع لشعرك نعومته ولمعانه الطبيعي في أقل من 15 دقيقة.</p>
-      <a href="#order" class="btn btn-primary">اطلبي دلوقتي بخصم يصل لـ 70%</a>
-      <div class="hero-trust">
-        <span>+50,000 عميلة راضية</span>
-        <span class="dot"></span>
-        <span>شحن لكل المحافظات</span>
+
+    <!-- Slide 1: Mask -->
+    <div class="hero-slide is-active" data-hero-slide="mask">
+      <div class="hero-copy">
+        <p class="eyebrow">الأكثر طلبًا لعلاج تلف وتقصف الشعر</p>
+        <h1>شعرك يستاهل يرجع زي الأول... من غير قص ولا صالونات</h1>
+        <p class="hero-sub">ماسك Karseell بالكولاجين وخلاصة الماكا بيصلح التقصف والجفاف من أول استخدام، ويرجّع لشعرك نعومته ولمعانه الطبيعي في أقل من 15 دقيقة.</p>
+        <div class="hero-btn-group">
+          <a href="#order" class="btn btn-primary">تسوقي الآن</a>
+          <a href="#features" class="btn btn-secondary">اكتشفي المزيد</a>
+        </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <img src="assets/mask.webp" alt="ماسك Karseell" class="product-photo hero-photo">
+
+    <!-- Slide 2: Shampoo + Conditioner -->
+    <div class="hero-slide" data-hero-slide="duo">
+      <div class="hero-copy">
+        <p class="eyebrow">روتين العناية اليومي الكامل</p>
+        <h1>شامبو وبلسم يغسلوا التلف مش بس الشعر</h1>
+        <p class="hero-sub">تركيبة خالية من الكبريتات بتنضف فروة الرأس وتغذي الشعر من الاستخدام اليومي، مع بلسم مرطب يسهّل تسريح شعرك من غير تشابك.</p>
+        <div class="hero-btn-group">
+          <a href="#order" class="btn btn-primary">تسوقي الآن</a>
+          <a href="#features" class="btn btn-secondary">اكتشفي المزيد</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero tabs -->
+    <div class="hero-tabs">
+      <button type="button" class="hero-tab is-active" data-hero-tab="mask">الماسك</button>
+      <button type="button" class="hero-tab" data-hero-tab="duo">الشامبو والبلسم</button>
     </div>
   </div>
 </section>
 
 <!-- Features -->
-<section class="features">
+<section class="features" id="features">
   <div class="wrap">
     <h2 class="section-title">ليه ماسك Karseell مختلف؟</h2>
     <div class="feature-grid">
@@ -257,6 +280,11 @@
     <p>Karseell &copy; <span id="year"></span> — للتواصل والاستفسار عبر <a href="https://www.facebook.com/karseell.original.egypt/" target="_blank" rel="noopener">رسائل الصفحة</a></p>
   </div>
 </footer>
+
+<!-- Sticky mobile CTA -->
+<div class="mobile-sticky-cta">
+  <a href="#order" class="btn btn-primary btn-full">اطلبي دلوقتي بخصم يصل لـ 70% 🔥</a>
+</div>
 
 <script src="script.js"></script>
 </body>

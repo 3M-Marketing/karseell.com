@@ -76,6 +76,24 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 .btn-outline:hover{ background: var(--emerald-deep); color: var(--white); }
 
+.btn-secondary{
+  background: transparent;
+  color: var(--emerald-deep);
+  border-color: rgba(74,18,32,.3);
+}
+.btn-secondary:hover{
+  border-color: var(--emerald-deep);
+  background: rgba(74,18,32,.05);
+}
+
+.hero-btn-group{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
 .btn-small{ padding: 9px 20px; font-size: 14px; }
 .btn-full{ width:100%; text-align:center; border:none; }
 
@@ -101,12 +119,53 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ============ Hero ============ */
-.hero{ padding: 64px 0 40px; }
-.hero-inner{
-  display:grid;
+/* ============ Promo bar ============ */
+.promo-bar{
+  background: var(--emerald-deep);
+  color: var(--white);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px 16px;
+}
+
+/* ============ Hero ============ */
+.hero{ padding: 64px 0 40px; position: relative; }
+.hero-slide{
+  display: none;
+}
+.hero-slide.is-active{
+  display: grid;
   grid-template-columns: 1.1fr .9fr;
   gap: 48px;
-  align-items:center;
+  align-items: center;
+}
+.hero-tabs{
+  display:flex;
+  justify-content:center;
+  gap: 10px;
+  margin-top: 36px;
+}
+.hero-tab{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(74,18,32,.2);
+  background: var(--white);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.hero-tab.is-active{
+  background: var(--emerald-deep);
+  border-color: var(--emerald-deep);
+  color: var(--white);
+}
+.hero-inner{
+  display: block;
 }
 .eyebrow{
   color: var(--gold);
@@ -582,9 +641,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 /* ============ Responsive ============ */
+/* ============ Sticky mobile CTA ============ */
+.mobile-sticky-cta{
+  display: none;
+}
+
 @media (max-width: 860px){
-  .hero-inner{ grid-template-columns: 1fr; text-align:center; }
+  .hero-slide.is-active{ grid-template-columns: 1fr; text-align:center; }
   .hero-trust{ justify-content:center; }
+  .mobile-sticky-cta{
+    display: block;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 60;
+    padding: 12px 16px;
+    background: rgba(251,246,236,.97);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid rgba(74,18,32,.1);
+    box-shadow: 0 -6px 20px rgba(74,18,32,.08);
+  }
+  body{ padding-bottom: 74px; }
   .feature-grid{ grid-template-columns: repeat(2, 1fr); }
   .steps{ grid-template-columns: repeat(2, 1fr); }
   .offer-grid{ grid-template-columns: 1fr; }
