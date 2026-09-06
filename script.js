@@ -1,6 +1,6 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ---- Offer selection ----
+// ---- Offer data ----
 const offerLabels = {
   mask: 'الماسك لوحده',
   duo: 'الشامبو + البلسم',
@@ -8,15 +8,52 @@ const offerLabels = {
 };
 
 const offerDetails = {
-  mask: { price: 599, shipping: 35 },
-  duo: { price: 699, shipping: 35 },
-  full: { price: 1199, shipping: 0 }
+  mask: { price: 599, shipping: 35, discountPercent: 53 },
+  duo: { price: 699, shipping: 35, discountPercent: 70 },
+  full: { price: 1199, shipping: 0, discountPercent: 67 }
 };
+
+const COUPON_CODE = 'KARSEELL15';
+const COUPON_DISCOUNT = 0.15;
 
 const offerField = document.getElementById('offerField');
 const selectedOfferLabel = document.getElementById('selectedOfferLabel');
-
 const allOfferCards = document.querySelectorAll('.offer-card');
+
+// ---- Order summary elements ----
+const orderSummary = document.getElementById('orderSummary');
+const summaryOfferName = document.getElementById('summaryOfferName');
+const summaryPrice = document.getElementById('summaryPrice');
+const summaryDiscount = document.getElementById('summaryDiscount');
+const summaryShipping = document.getElementById('summaryShipping');
+const summaryTotal = document.getElementById('summaryTotal');
+const couponInput = document.getElementById('couponInput');
+const applyCouponBtn = document.getElementById('applyCouponBtn');
+const couponMessage = document.getElementById('couponMessage');
+
+let couponApplied = false;
+
+function updateSummary(offerKey) {
+  const details = offerDetails[offerKey];
+  if (!details) return;
+
+  orderSummary.hidden = false;
+  summaryOfferName.textContent = offerLabels[offerKey] || offerKey;
+  summaryPrice.textContent = details.price + ' جنيه';
+  summaryDiscount.textContent = 'خصم ' + details.discountPercent + '%';
+
+  if (details.shipping === 0) {
+    summaryShipping.textContent = 'شحن مجاني';
+    summaryShipping.classList.add('summary-free');
+  } else {
+    summaryShipping.textContent = details.shipping + ' جنيه';
+    summaryShipping.classList.remove('summary-free');
+  }
+
+  const subtotal = details.price + details.shipping;
+  const total = couponApplied ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
+  summaryTotal.textContent = total + ' جنيه';
+}
 
 document.querySelectorAll('.choose-offer').forEach(function (btn) {
   btn.addEventListener('click', function (e) {
@@ -29,7 +66,32 @@ document.querySelectorAll('.choose-offer').forEach(function (btn) {
 
     offerField.value = offerKey;
     selectedOfferLabel.textContent = offerLabels[offerKey] || offerKey;
+
+    updateSummary(offerKey);
   });
+});
+
+// ---- Coupon ----
+applyCouponBtn.addEventListener('click', function () {
+  if (!offerField.value) {
+    couponMessage.textContent = 'اختاري عرض الأول قبل ما تفعّلي الكود.';
+    couponMessage.className = 'coupon-message error';
+    return;
+  }
+
+  const entered = couponInput.value.trim().toUpperCase();
+
+  if (entered === COUPON_CODE) {
+    couponApplied = true;
+    couponMessage.textContent = 'تم تفعيل الكود بنجاح، خصم إضافي 15% 🎉';
+    couponMessage.className = 'coupon-message success';
+  } else {
+    couponApplied = false;
+    couponMessage.textContent = 'الكود غير صحيح أو منتهي الصلاحية.';
+    couponMessage.className = 'coupon-message error';
+  }
+
+  updateSummary(offerField.value);
 });
 
 // ---- Order form ----
@@ -51,14 +113,18 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  const details = offerDetails[offerField.value] || { price: null, shipping: null };
+  const details = offerDetails[offerField.value] || { price: null, shipping: null, discountPercent: null };
+  const subtotal = (details.price !== null && details.shipping !== null) ? details.price + details.shipping : null;
+  const total = (subtotal !== null && couponApplied) ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
 
   const data = {
     offer: offerField.value,
     offerLabel: offerLabels[offerField.value] || offerField.value,
     price: details.price,
+    discountPercent: details.discountPercent,
     shipping: details.shipping,
-    total: (details.price !== null && details.shipping !== null) ? details.price + details.shipping : null,
+    couponApplied: couponApplied,
+    total: total,
     name: form.name.value.trim(),
     phone: form.phone.value.trim(),
     governorate: form.governorate.value,

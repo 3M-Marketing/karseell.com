@@ -27,7 +27,7 @@
       <p class="eyebrow">الأكثر طلبًا لعلاج تلف وتقصف الشعر</p>
       <h1>شعرك يستاهل يرجع زي الأول... من غير قص ولا صالونات</h1>
       <p class="hero-sub">ماسك Karseell بالكولاجين وخلاصة الماكا بيصلح التقصف والجفاف من أول استخدام، ويرجّع لشعرك نعومته ولمعانه الطبيعي في أقل من 15 دقيقة.</p>
-      <a href="#order" class="btn btn-primary">اطلبي دلوقتي بخصم يصل لـ 70%</a>
+      <a href="#order" class="btn btn-primary">اطلبي دلوقتي بخصم يصل لـ 50%</a>
       <div class="hero-trust">
         <span>+50,000 عميلة راضية</span>
         <span class="dot"></span>
@@ -210,6 +210,40 @@
         <textarea name="address" required placeholder="الحي، الشارع، رقم العمارة..."></textarea>
       </label>
 
+      <div class="order-summary" id="orderSummary" hidden>
+        <h3>مراجعة الطلب قبل التأكيد</h3>
+        <div class="summary-row">
+          <span>المنتج المختار</span>
+          <span id="summaryOfferName">-</span>
+        </div>
+        <div class="summary-row">
+          <span>السعر</span>
+          <span id="summaryPrice">-</span>
+        </div>
+        <div class="summary-row">
+          <span>نسبة الخصم</span>
+          <span id="summaryDiscount">-</span>
+        </div>
+        <div class="summary-row">
+          <span>مصاريف الشحن</span>
+          <span id="summaryShipping">-</span>
+        </div>
+
+        <div class="coupon-block">
+          <label for="couponInput">عندك كود خصم؟</label>
+          <div class="coupon-input-group">
+            <input type="text" id="couponInput" placeholder="اكتبي الكود هنا">
+            <button type="button" id="applyCouponBtn" class="btn btn-outline btn-small">تفعيل الكود</button>
+          </div>
+          <p id="couponMessage" class="coupon-message"></p>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>الإجمالي</span>
+          <span id="summaryTotal">-</span>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-primary btn-full">تأكيد الطلب</button>
       <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
     </form>
@@ -219,7 +253,7 @@
 <!-- Footer -->
 <footer class="site-footer">
   <div class="wrap">
-    <p>Karseell &copy; <span id="year"></span> — للتواصل والاستفسار عبر رسائل الصفحة</p>
+    <p>Karseell &copy; <span id="year"></span> — للتواصل والاستفسار عبر <a href="https://www.facebook.com/karseell.original.egypt/" target="_blank" rel="noopener">رسائل الصفحة</a></p>
   </div>
 </footer>
 

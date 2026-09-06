@@ -423,12 +423,83 @@ ul{ margin:0; padding:0; list-style:none; }
 .form-message.success{ color: var(--emerald-deep); }
 .form-message.error{ color: #B3402A; }
 
+/* ---- order summary / review before confirming ---- */
+.order-summary{
+  background: var(--ivory);
+  border: 1.5px solid rgba(74,18,32,.15);
+  border-radius: 12px;
+  padding: 18px;
+  margin-top: 6px;
+}
+.order-summary h3{
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size: 14px;
+  color: var(--ink-soft);
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(74,18,32,.12);
+}
+.summary-row:last-of-type{ border-bottom:none; }
+.summary-total{
+  margin-top: 6px;
+  padding-top: 12px;
+  border-top: 2px solid rgba(74,18,32,.2);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--emerald-deep);
+}
+.summary-free{ color:#2E7D4F; font-weight:700; }
+
+.coupon-block{
+  margin: 14px 0;
+  padding: 14px 0;
+  border-top: 1px dashed rgba(74,18,32,.12);
+  border-bottom: 1px dashed rgba(74,18,32,.12);
+}
+.coupon-block label{
+  display:block;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+.coupon-input-group{
+  display:flex;
+  gap: 8px;
+}
+.coupon-input-group input{
+  flex-grow:1;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(22,56,40,.18);
+  background: var(--white);
+}
+.coupon-message{
+  font-size: 13px;
+  margin: 8px 0 0;
+  min-height: 16px;
+}
+.coupon-message.success{ color:#2E7D4F; font-weight:700; }
+.coupon-message.error{ color:#B3402A; font-weight:700; }
+
 /* ============ Footer ============ */
 .site-footer{
   padding: 26px 0;
   text-align:center;
   color: var(--ink-soft);
   font-size: 14px;
+}
+.site-footer a{
+  color: var(--emerald-deep);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 /* ============ Thank-you page ============ */
@@ -527,4 +598,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .hero{ padding: 40px 0 24px; }
   .order-form{ padding: 22px; }
   .discount-code-row{ flex-direction: column; }
+  .coupon-input-group{ flex-direction: column; }
 }
