@@ -134,20 +134,34 @@ form.addEventListener('submit', function (e) {
 
   // send the order to the connected Google Sheet
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-LY4Fk0E2MIwbvVZ_F8axR1WuvDyejSHD64sW2WsRBRd-eZC0saxNm9PGRkP93EkKTA/exec';
-
-  fetch(GOOGLE_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify(data)
-  }).catch(function (err) {
-    console.error('Failed to send order to Google Sheet:', err);
-  });
+  const payload = JSON.stringify(data);
 
   console.log('Order submitted:', data);
 
   // save the order data locally in case you want to prefill/reference it on the thank-you page later
-  try { sessionStorage.setItem('karseellLastOrder', JSON.stringify(data)); } catch (err) {}
+  try { sessionStorage.setItem('karseellLastOrder', payload); } catch (err) {}
 
-  window.location.href = 'thankyou.html';
+  // sendBeacon is built for exactly this case: firing a request right before navigating away,
+  // without the browser cancelling it mid-flight the way it can with a plain fetch().
+  let sent = false;
+  if (navigator.sendBeacon) {
+    const blob = new Blob([payload], { type: 'text/plain;charset=UTF-8' });
+    sent = navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
+  }
+
+  if (sent) {
+    window.location.href = 'thankyou.html';
+  } else {
+    // fallback: wait for the fetch to actually finish before leaving the page
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: payload
+    }).catch(function (err) {
+      console.error('Failed to send order to Google Sheet:', err);
+    }).finally(function () {
+      window.location.href = 'thankyou.html';
+    });
+  }
 });
