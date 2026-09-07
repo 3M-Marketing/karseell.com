@@ -8,10 +8,13 @@ const offerLabels = {
 };
 
 const offerDetails = {
-  mask: { price: 599, shipping: 35, discountPercent: 53 },
-  duo: { price: 699, shipping: 35, discountPercent: 70 },
-  full: { price: 1199, shipping: 0, discountPercent: 67 }
+  mask: { price: 599, discountPercent: 53 },
+  duo: { price: 699, discountPercent: 70 },
+  full: { price: 1199, discountPercent: 67 }
 };
+
+const FREE_SHIPPING_THRESHOLD = 1000;
+const SHIPPING_FEE = 35;
 
 const COUPON_CODE = 'KARSEELL15';
 const COUPON_DISCOUNT = 0.15;
@@ -30,8 +33,12 @@ const summaryTotal = document.getElementById('summaryTotal');
 const couponInput = document.getElementById('couponInput');
 const applyCouponBtn = document.getElementById('applyCouponBtn');
 const couponMessage = document.getElementById('couponMessage');
+const qtyMinus = document.getElementById('qtyMinus');
+const qtyPlus = document.getElementById('qtyPlus');
+const qtyValue = document.getElementById('qtyValue');
 
 let couponApplied = false;
+let quantity = 1;
 
 function updateSummary(offerKey) {
   const details = offerDetails[offerKey];
@@ -39,18 +46,25 @@ function updateSummary(offerKey) {
 
   orderSummary.hidden = false;
   summaryOfferName.textContent = offerLabels[offerKey] || offerKey;
-  summaryPrice.textContent = details.price + ' جنيه';
+  qtyValue.textContent = quantity;
+
+  const lineTotal = details.price * quantity;
+  summaryPrice.textContent = (quantity > 1
+    ? details.price + ' × ' + quantity + ' = ' + lineTotal + ' جنيه'
+    : lineTotal + ' جنيه');
+
   summaryDiscount.textContent = 'خصم ' + details.discountPercent + '%';
 
-  if (details.shipping === 0) {
+  const shipping = lineTotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  if (shipping === 0) {
     summaryShipping.textContent = 'شحن مجاني';
     summaryShipping.classList.add('summary-free');
   } else {
-    summaryShipping.textContent = details.shipping + ' جنيه';
+    summaryShipping.textContent = shipping + ' جنيه';
     summaryShipping.classList.remove('summary-free');
   }
 
-  const subtotal = details.price + details.shipping;
+  const subtotal = lineTotal + shipping;
   const total = couponApplied ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
   summaryTotal.textContent = total + ' جنيه';
 }
@@ -59,12 +73,25 @@ function selectOffer(offerKey) {
   const card = document.querySelector('.offer-card[data-offer="' + offerKey + '"]');
   if (!card) return;
 
+  // reset quantity whenever a different offer is chosen
+  if (offerField.value !== offerKey) {
+    quantity = 1;
+  }
+
   // move the highlighted/selected border to the chosen offer
   allOfferCards.forEach(function (c) { c.classList.remove('selected'); });
   card.classList.add('selected');
 
   offerField.value = offerKey;
   selectedOfferLabel.textContent = offerLabels[offerKey] || offerKey;
+
+  if (typeof fbq === 'function') {
+    fbq('track', 'InitiateCheckout', {
+      content_name: offerLabels[offerKey] || offerKey,
+      value: offerDetails[offerKey] ? offerDetails[offerKey].price : undefined,
+      currency: 'EGP'
+    });
+  }
 
   updateSummary(offerKey);
 }
@@ -74,6 +101,19 @@ document.querySelectorAll('.choose-offer').forEach(function (btn) {
     const card = btn.closest('.offer-card');
     selectOffer(card.getAttribute('data-offer'));
   });
+});
+
+// ---- Quantity stepper ----
+qtyMinus.addEventListener('click', function () {
+  if (quantity > 1) {
+    quantity -= 1;
+    updateSummary(offerField.value);
+  }
+});
+
+qtyPlus.addEventListener('click', function () {
+  quantity += 1;
+  updateSummary(offerField.value);
 });
 
 // ---- Hero CTA buttons: jump straight to a specific offer, pre-selected ----
@@ -126,16 +166,20 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  const details = offerDetails[offerField.value] || { price: null, shipping: null, discountPercent: null };
-  const subtotal = (details.price !== null && details.shipping !== null) ? details.price + details.shipping : null;
+  const details = offerDetails[offerField.value] || { price: null, discountPercent: null };
+  const lineTotal = details.price !== null ? details.price * quantity : null;
+  const shipping = lineTotal !== null ? (lineTotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE) : null;
+  const subtotal = (lineTotal !== null && shipping !== null) ? lineTotal + shipping : null;
   const total = (subtotal !== null && couponApplied) ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
 
   const data = {
     offer: offerField.value,
-    offerLabel: offerLabels[offerField.value] || offerField.value,
-    price: details.price,
+    // quantity is folded into the label so it shows up in the Google Sheet without needing to edit the Apps Script
+    offerLabel: (offerLabels[offerField.value] || offerField.value) + (quantity > 1 ? ' (الكمية: ' + quantity + ')' : ''),
+    quantity: quantity,
+    price: lineTotal,
     discountPercent: details.discountPercent,
-    shipping: details.shipping,
+    shipping: shipping,
     couponApplied: couponApplied,
     total: total,
     name: form.name.value.trim(),

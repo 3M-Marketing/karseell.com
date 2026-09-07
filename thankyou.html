@@ -9,6 +9,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1751524826109438');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -58,6 +75,20 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Meta Pixel: track the completed order using the data saved right before redirect
+  if (typeof fbq === 'function') {
+    try {
+      const lastOrder = JSON.parse(sessionStorage.getItem('karseellLastOrder') || 'null');
+      if (lastOrder) {
+        fbq('track', 'Purchase', {
+          content_name: lastOrder.offerLabel,
+          value: lastOrder.total,
+          currency: 'EGP'
+        });
+      }
+    } catch (err) {}
+  }
 
   // discount code is valid for 30 days from the moment the customer lands here (right after purchase)
   const expiry = new Date();

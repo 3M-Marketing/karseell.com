@@ -10,6 +10,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1751524826109438');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -107,12 +124,13 @@
     <div class="offer-grid">
 
       <div class="offer-card" data-offer="mask">
+        <span class="badge badge-outline">ابدئي بيه</span>
         <h3>الماسك لوحده</h3>
         <div class="offer-visual">
           <img src="assets/mask.webp" alt="ماسك Karseell" class="product-photo">
         </div>
         <p class="offer-price"><span class="price-new">599 جنيه</span> <span class="price-old">1268 جنيه</span> <span class="discount-badge">خصم 53%</span></p>
-        <p class="offer-shipping">+ 35 جنيه مصاريف شحن</p>
+        <p class="offer-shipping">+ 35 جنيه شحن (مجاني من عبوتين)</p>
         <ul class="offer-list">
           <li>ماسك بروتين 500 مل</li>
           <li>يكفي لأكتر من شهرين استخدام</li>
@@ -121,12 +139,13 @@
       </div>
 
       <div class="offer-card" data-offer="duo">
+        <span class="badge badge-outline">الأكثر طلبًا</span>
         <h3>الشامبو + البلسم</h3>
         <div class="offer-visual">
           <img src="assets/duo.webp" alt="شامبو وبلسم Karseell" class="product-photo">
         </div>
         <p class="offer-price"><span class="price-new">699 جنيه</span> <span class="price-old">2345 جنيه</span> <span class="discount-badge">خصم 70%</span></p>
-        <p class="offer-shipping">+ 35 جنيه مصاريف شحن</p>
+        <p class="offer-shipping">+ 35 جنيه شحن (مجاني من عبوتين)</p>
         <ul class="offer-list">
           <li>شامبو خالي من الكبريتات</li>
           <li>بلسم مغذي للاستخدام اليومي</li>
@@ -225,6 +244,14 @@
         <div class="summary-row">
           <span>المنتج المختار</span>
           <span id="summaryOfferName">-</span>
+        </div>
+        <div class="summary-row">
+          <span>الكمية</span>
+          <span class="qty-stepper">
+            <button type="button" class="qty-btn" id="qtyMinus" aria-label="تقليل الكمية">−</button>
+            <span id="qtyValue">1</span>
+            <button type="button" class="qty-btn" id="qtyPlus" aria-label="زيادة الكمية">+</button>
+          </span>
         </div>
         <div class="summary-row">
           <span>السعر</span>
