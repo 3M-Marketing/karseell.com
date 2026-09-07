@@ -29,37 +29,25 @@
 <!-- Hero -->
 <section class="hero">
   <div class="wrap hero-inner">
-
-    <!-- Slide 1: Mask -->
-    <div class="hero-slide is-active" data-hero-slide="mask">
-      <div class="hero-copy">
-        <p class="eyebrow">الأكثر طلبًا لعلاج تلف وتقصف الشعر</p>
-        <h1>شعرك يستاهل يرجع زي الأول... من غير قص ولا صالونات</h1>
-        <p class="hero-sub">ماسك Karseell بالكولاجين وخلاصة الماكا بيصلح التقصف والجفاف من أول استخدام، ويرجّع لشعرك نعومته ولمعانه الطبيعي في أقل من 15 دقيقة.</p>
-        <div class="hero-btn-group">
-          <a href="#order" class="btn btn-primary">تسوقي الآن</a>
-          <a href="#features" class="btn btn-secondary">اكتشفي المزيد</a>
-        </div>
+    <div class="hero-copy">
+      <p class="eyebrow">الأكثر طلبًا لعلاج تلف وتقصف الشعر</p>
+      <h1>شعرك يستاهل يرجع زي الأول... من غير قص ولا صالونات</h1>
+      <p class="hero-sub">ماسك Karseell بالكولاجين وخلاصة الماكا بيصلح التقصف والجفاف من أول استخدام، ويرجّع لشعرك نعومته ولمعانه الطبيعي في أقل من 15 دقيقة.</p>
+      <div class="hero-btn-group">
+        <a href="#offers" class="btn btn-primary" onclick="return goToOffer('mask')">تسوقي الآن</a>
+        <a href="#offers" class="btn btn-secondary" onclick="return goToOffer('full')">اكتشفي المزيد</a>
+      </div>
+      <div class="hero-trust">
+        <span>+50,000 عميلة راضية</span>
+        <span class="dot"></span>
+        <span>شحن لكل المحافظات</span>
       </div>
     </div>
-
-    <!-- Slide 2: Shampoo + Conditioner -->
-    <div class="hero-slide" data-hero-slide="duo">
-      <div class="hero-copy">
-        <p class="eyebrow">روتين العناية اليومي الكامل</p>
-        <h1>شامبو وبلسم يغسلوا التلف مش بس الشعر</h1>
-        <p class="hero-sub">تركيبة خالية من الكبريتات بتنضف فروة الرأس وتغذي الشعر من الاستخدام اليومي، مع بلسم مرطب يسهّل تسريح شعرك من غير تشابك.</p>
-        <div class="hero-btn-group">
-          <a href="#order" class="btn btn-primary">تسوقي الآن</a>
-          <a href="#features" class="btn btn-secondary">اكتشفي المزيد</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hero tabs -->
-    <div class="hero-tabs">
-      <button type="button" class="hero-tab is-active" data-hero-tab="mask">الماسك</button>
-      <button type="button" class="hero-tab" data-hero-tab="duo">الشامبو والبلسم</button>
+    <div class="hero-visual">
+      <!-- Real product video -->
+      <video class="product-photo hero-photo" autoplay muted loop playsinline poster="assets/hero-video-poster.jpg">
+        <source src="assets/hero-video.webm" type="video/webm">
+      </video>
     </div>
   </div>
 </section>

@@ -118,7 +118,6 @@ ul{ margin:0; padding:0; list-style:none; }
   width: auto;
 }
 
-/* ============ Hero ============ */
 /* ============ Promo bar ============ */
 .promo-bar{
   background: var(--emerald-deep);
@@ -131,41 +130,12 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ============ Hero ============ */
-.hero{ padding: 64px 0 40px; position: relative; }
-.hero-slide{
-  display: none;
-}
-.hero-slide.is-active{
+.hero{ padding: 64px 0 40px; }
+.hero-inner{
   display: grid;
   grid-template-columns: 1.1fr .9fr;
   gap: 48px;
   align-items: center;
-}
-.hero-tabs{
-  display:flex;
-  justify-content:center;
-  gap: 10px;
-  margin-top: 36px;
-}
-.hero-tab{
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  padding: 10px 22px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(74,18,32,.2);
-  background: var(--white);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: all .2s ease;
-}
-.hero-tab.is-active{
-  background: var(--emerald-deep);
-  border-color: var(--emerald-deep);
-  color: var(--white);
-}
-.hero-inner{
-  display: block;
 }
 .eyebrow{
   color: var(--gold);
@@ -647,7 +617,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 @media (max-width: 860px){
-  .hero-slide.is-active{ grid-template-columns: 1fr; text-align:center; }
+  .hero-inner{ grid-template-columns: 1fr; text-align:center; }
   .hero-trust{ justify-content:center; }
   .mobile-sticky-cta{
     display: block;

@@ -1,19 +1,5 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// ---- Hero tabs ----
-document.querySelectorAll('.hero-tab').forEach(function (tab) {
-  tab.addEventListener('click', function () {
-    const target = tab.getAttribute('data-hero-tab');
-
-    document.querySelectorAll('.hero-tab').forEach(function (t) { t.classList.remove('is-active'); });
-    tab.classList.add('is-active');
-
-    document.querySelectorAll('.hero-slide').forEach(function (slide) {
-      slide.classList.toggle('is-active', slide.getAttribute('data-hero-slide') === target);
-    });
-  });
-});
-
 // ---- Offer data ----
 const offerLabels = {
   mask: 'الماسك لوحده',
@@ -69,21 +55,34 @@ function updateSummary(offerKey) {
   summaryTotal.textContent = total + ' جنيه';
 }
 
+function selectOffer(offerKey) {
+  const card = document.querySelector('.offer-card[data-offer="' + offerKey + '"]');
+  if (!card) return;
+
+  // move the highlighted/selected border to the chosen offer
+  allOfferCards.forEach(function (c) { c.classList.remove('selected'); });
+  card.classList.add('selected');
+
+  offerField.value = offerKey;
+  selectedOfferLabel.textContent = offerLabels[offerKey] || offerKey;
+
+  updateSummary(offerKey);
+}
+
 document.querySelectorAll('.choose-offer').forEach(function (btn) {
   btn.addEventListener('click', function (e) {
     const card = btn.closest('.offer-card');
-    const offerKey = card.getAttribute('data-offer');
-
-    // move the highlighted/selected border to the clicked offer
-    allOfferCards.forEach(function (c) { c.classList.remove('selected'); });
-    card.classList.add('selected');
-
-    offerField.value = offerKey;
-    selectedOfferLabel.textContent = offerLabels[offerKey] || offerKey;
-
-    updateSummary(offerKey);
+    selectOffer(card.getAttribute('data-offer'));
   });
 });
+
+// ---- Hero CTA buttons: jump straight to a specific offer, pre-selected ----
+function goToOffer(offerKey) {
+  selectOffer(offerKey);
+  const card = document.querySelector('.offer-card[data-offer="' + offerKey + '"]');
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return false; // prevent the default anchor jump so the smooth scroll above is the only one that runs
+}
 
 // ---- Coupon ----
 applyCouponBtn.addEventListener('click', function () {
