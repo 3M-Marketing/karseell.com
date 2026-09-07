@@ -363,6 +363,11 @@ ul{ margin:0; padding:0; list-style:none; }
   border-radius: 999px;
   white-space: nowrap;
 }
+.badge-outline{
+  background: var(--white);
+  color: var(--emerald-deep);
+  border: 1.5px solid rgba(74,18,32,.25);
+}
 .offer-visual{
   display:flex;
   justify-content:center;
@@ -506,6 +511,38 @@ ul{ margin:0; padding:0; list-style:none; }
   border-bottom: 1px dashed rgba(74,18,32,.12);
 }
 .summary-row:last-of-type{ border-bottom:none; }
+.qty-stepper{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+.qty-btn{
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(74,18,32,.25);
+  background: var(--white);
+  color: var(--emerald-deep);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: all .15s ease;
+}
+.qty-btn:hover{
+  background: var(--emerald-deep);
+  color: var(--white);
+  border-color: var(--emerald-deep);
+}
+#qtyValue{
+  font-weight: 700;
+  min-width: 18px;
+  text-align:center;
+}
 .summary-total{
   margin-top: 6px;
   padding-top: 12px;
@@ -698,14 +735,78 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .steps{ grid-template-columns: repeat(2, 1fr); }
   .offer-grid{ grid-template-columns: 1fr; }
   .offer-card.selected{ transform:none; }
-  .offer-card.recommended{ order:-1; }
 }
 
 @media (max-width: 480px){
   .feature-grid{ grid-template-columns: 1fr; }
   .steps{ grid-template-columns: 1fr; }
-  .hero{ padding: 40px 0 24px; }
+  .hero{ padding: 40px 0 24px; min-height: 380px; }
   .order-form{ padding: 22px; }
   .discount-code-row{ flex-direction: column; }
   .coupon-input-group{ flex-direction: column; }
+
+  /* ---- smaller type & spacing overall on phones ---- */
+  body{ font-size: 13px; }
+  .logo-img{ height: 26px; }
+  .header-inner{ padding-top: 10px; padding-bottom: 10px; }
+  .promo-bar{ font-size: 11px; padding: 8px 12px; }
+
+  .eyebrow{ font-size: 12px; margin-bottom: 6px; }
+  .hero h1{ font-size: clamp(22px, 6.5vw, 28px); margin-bottom: 10px; }
+  .hero-sub{ font-size: 14px; margin-bottom: 18px; }
+  .hero-trust{ font-size: 12px; margin-top: 14px; }
+
+  .btn{ padding: 11px 20px; font-size: 13px; }
+  .btn-small{ padding: 7px 16px; font-size: 12px; }
+  .hero-btn-group{ gap: 10px; margin-bottom: 14px; }
+
+  .section-title{ font-size: 20px; margin-bottom: 24px; }
+
+  .features{ padding: 36px 0; }
+  .feature-card{ padding: 18px 14px; gap: 6px; }
+  .feature-card h3{ font-size: 15px; }
+  .feature-card p{ font-size: 12.5px; }
+
+  .how-to{ padding: 36px 0; }
+  .step-num{ width: 32px; height: 32px; font-size: 14px; margin-bottom: 8px; }
+  .step p{ font-size: 12.5px; }
+
+  .offers{ padding: 40px 0; }
+  .offer-card{ padding: 20px 14px; }
+  .offer-card h3{ font-size: 15px; }
+  .price-new{ font-size: 19px; }
+  .price-old{ font-size: 12px; }
+  .discount-badge{ font-size: 10px; padding: 3px 8px; }
+  .offer-shipping{ font-size: 11px; }
+  .offer-list li{ font-size: 12px; }
+  .badge{ font-size: 11px; padding: 5px 12px; }
+
+  .trust-inner{ font-size: 12px; gap: 8px; }
+
+  .order{ padding: 40px 0; }
+  .order-sub{ font-size: 13px; }
+  .order-form label{ font-size: 12.5px; }
+  .order-form input,
+  .order-form select,
+  .order-form textarea{ font-size: 14px; padding: 10px 12px; }
+
+  .order-summary{ padding: 14px; }
+  .order-summary h3{ font-size: 14px; }
+  .summary-row{ font-size: 12.5px; }
+  .summary-total{ font-size: 16px; }
+  .coupon-block label{ font-size: 12px; }
+  .coupon-input-group input{ font-size: 13px; padding: 8px 10px; }
+  .btn-copy{ padding: 8px 14px; font-size: 12px; }
+
+  .site-footer p{ font-size: 12px; }
+  .social-links a{ width: 34px; height: 34px; }
+
+  .thankyou{ padding: 48px 0; }
+  .thankyou-check{ width: 52px; height: 52px; font-size: 24px; margin-bottom: 14px; }
+  .thankyou h1{ font-size: 22px; }
+  .thankyou-sub{ font-size: 13px; margin-bottom: 22px; }
+  .discount-box{ padding: 20px 16px; }
+  .discount-title{ font-size: 15px; }
+  .discount-copy{ font-size: 13px; }
+  .discount-code{ font-size: 19px; padding: 10px 12px; }
 }
