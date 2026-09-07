@@ -130,24 +130,49 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 
 /* ============ Hero ============ */
-.hero{ padding: 64px 0 40px; }
-.hero-inner{
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 48px;
+.hero{
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  display: flex;
   align-items: center;
+  padding: 90px 0;
+}
+.hero-bg-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+.hero-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to left, rgba(10,6,6,.78) 0%, rgba(10,6,6,.5) 45%, rgba(10,6,6,.18) 80%);
+}
+.hero-inner{
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+.hero-copy{
+  max-width: 600px;
 }
 .eyebrow{
-  color: var(--gold);
+  color: var(--gold-light);
   font-weight: 700;
   margin: 0 0 10px;
   font-size: 15px;
 }
 .hero h1{
   font-size: clamp(32px, 4vw, 46px);
+  color: var(--white);
 }
 .hero-sub{
-  color: var(--ink-soft);
+  color: rgba(255,255,255,.85);
   font-size: 18px;
   max-width: 46ch;
   margin-bottom: 28px;
@@ -157,17 +182,24 @@ ul{ margin:0; padding:0; list-style:none; }
   display:flex;
   align-items:center;
   gap: 12px;
-  color: var(--ink-soft);
+  color: rgba(255,255,255,.75);
   font-size: 14px;
   flex-wrap: wrap;
 }
 .dot{
   width:4px; height:4px; border-radius:50%;
-  background: var(--ink-soft);
+  background: rgba(255,255,255,.6);
   display:inline-block;
 }
-
-.hero-visual{ display:flex; justify-content:center; }
+.hero .btn-secondary{
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,.5);
+}
+.hero .btn-secondary:hover{
+  background: rgba(255,255,255,.12);
+  border-color: var(--white);
+}
 
 /* ---- jar illustration (placeholder for real product photo) ---- */
 .jar{
@@ -617,7 +649,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 @media (max-width: 860px){
-  .hero-inner{ grid-template-columns: 1fr; text-align:center; }
+  .hero{ min-height: 520px; padding: 60px 0; align-items: flex-end; }
+  .hero-overlay{ background: linear-gradient(to top, rgba(10,6,6,.85) 0%, rgba(10,6,6,.55) 40%, rgba(10,6,6,.15) 75%); }
+  .hero-copy{ max-width: 100%; text-align: center; margin: 0 auto; }
+  .hero-sub{ margin-inline: auto; }
+  .hero-btn-group{ justify-content: center; }
   .hero-trust{ justify-content:center; }
   .mobile-sticky-cta{
     display: block;
