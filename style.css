@@ -562,6 +562,31 @@ ul{ margin:0; padding:0; list-style:none; }
   font-weight: 700;
   text-decoration: underline;
 }
+.social-links{
+  display:flex;
+  justify-content:center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.social-links a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 1.5px solid rgba(74,18,32,.15);
+  color: var(--emerald-deep);
+  text-decoration: none;
+  transition: all .2s ease;
+}
+.social-links a:hover{
+  background: var(--emerald-deep);
+  color: var(--white);
+  border-color: var(--emerald-deep);
+  transform: translateY(-2px);
+}
 
 /* ============ Thank-you page ============ */
 .thankyou{ padding: 80px 0; }
@@ -649,8 +674,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 @media (max-width: 860px){
-  .hero{ min-height: 520px; padding: 60px 0; align-items: flex-end; }
-  .hero-overlay{ background: linear-gradient(to top, rgba(10,6,6,.85) 0%, rgba(10,6,6,.55) 40%, rgba(10,6,6,.15) 75%); }
+  .hero{ min-height: 420px; padding: 40px 0; align-items: center; }
+  .hero-overlay{ background: linear-gradient(to top, rgba(10,6,6,.75) 0%, rgba(10,6,6,.55) 55%, rgba(10,6,6,.35) 100%); }
   .hero-copy{ max-width: 100%; text-align: center; margin: 0 auto; }
   .hero-sub{ margin-inline: auto; }
   .hero-btn-group{ justify-content: center; }
