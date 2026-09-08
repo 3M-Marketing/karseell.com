@@ -190,7 +190,7 @@ form.addEventListener('submit', function (e) {
   };
 
   // send the order to the connected Google Sheet
-  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-LY4Fk0E2MIwbvVZ_F8axR1WuvDyejSHD64sW2WsRBRd-eZC0saxNm9PGRkP93EkKTA/exec';
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyvclP3ma7KSbrA05xGojVDf470S8plyetSRo1OEWbOBsWG-ZnwE41rWmrLUz6tiLo/exec';
   const payload = JSON.stringify(data);
 
   console.log('Order submitted:', data);
