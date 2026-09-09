@@ -85,7 +85,7 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
           content_name: lastOrder.offerLabel,
           value: lastOrder.total,
           currency: 'EGP'
-        });
+        }, { eventID: lastOrder.eventId });
       }
     } catch (err) {}
   }

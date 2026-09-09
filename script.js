@@ -173,6 +173,7 @@ form.addEventListener('submit', function (e) {
   const total = (subtotal !== null && couponApplied) ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
 
   const data = {
+    eventId: 'order_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
     offer: offerField.value,
     // quantity is folded into the label so it shows up in the Google Sheet without needing to edit the Apps Script
     offerLabel: (offerLabels[offerField.value] || offerField.value) + (quantity > 1 ? ' (الكمية: ' + quantity + ')' : ''),
