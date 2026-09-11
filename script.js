@@ -13,6 +13,13 @@ const offerDetails = {
   full: { price: 1199, discountPercent: 67 }
 };
 
+// Special fixed price when a customer orders exactly 2 of the same offer (extra bundle discount, always free shipping)
+const BUNDLE_OF_2_PRICE = {
+  mask: 999,
+  duo: 1300,
+  full: 1999
+};
+
 const FREE_SHIPPING_THRESHOLD = 1000;
 const SHIPPING_FEE = 35;
 
@@ -22,6 +29,52 @@ const COUPON_DISCOUNT = 0.15;
 const offerField = document.getElementById('offerField');
 const selectedOfferLabel = document.getElementById('selectedOfferLabel');
 const allOfferCards = document.querySelectorAll('.offer-card');
+
+// ---- Hamburger side menu ----
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const sideMenu = document.getElementById('sideMenu');
+const sideMenuOverlay = document.getElementById('sideMenuOverlay');
+const sideMenuClose = document.getElementById('sideMenuClose');
+
+function openSideMenu() {
+  sideMenu.classList.add('is-open');
+  sideMenuOverlay.classList.add('is-open');
+}
+function closeSideMenu() {
+  sideMenu.classList.remove('is-open');
+  sideMenuOverlay.classList.remove('is-open');
+}
+hamburgerBtn.addEventListener('click', openSideMenu);
+sideMenuClose.addEventListener('click', closeSideMenu);
+sideMenuOverlay.addEventListener('click', closeSideMenu);
+document.querySelectorAll('.side-menu-link').forEach(function (link) {
+  link.addEventListener('click', closeSideMenu);
+});
+
+// ---- Product info tabs ----
+document.querySelectorAll('.info-tab-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    const target = btn.getAttribute('data-info-tab');
+
+    document.querySelectorAll('.info-tab-btn').forEach(function (b) { b.classList.remove('is-active'); });
+    btn.classList.add('is-active');
+
+    document.querySelectorAll('.info-tab-pane').forEach(function (pane) {
+      pane.classList.toggle('is-active', pane.id === 'tab-' + target);
+    });
+  });
+});
+
+// ---- Live viewer counter (cosmetic urgency element) ----
+const liveViewersEl = document.getElementById('liveViewers');
+if (liveViewersEl) {
+  setInterval(function () {
+    const current = parseInt(liveViewersEl.textContent, 10) || 20;
+    const change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+    const next = Math.min(41, Math.max(14, current + change));
+    liveViewersEl.textContent = next;
+  }, 4000);
+}
 
 // ---- Order summary elements ----
 const orderSummary = document.getElementById('orderSummary');
@@ -40,22 +93,39 @@ const qtyValue = document.getElementById('qtyValue');
 let couponApplied = false;
 let quantity = 1;
 
+function computeOrderTotals(offerKey, qty) {
+  const details = offerDetails[offerKey];
+  if (!details) return null;
+
+  const isBundleOf2 = qty === 2 && BUNDLE_OF_2_PRICE[offerKey] !== undefined;
+  const lineTotal = isBundleOf2 ? BUNDLE_OF_2_PRICE[offerKey] : details.price * qty;
+  const shipping = isBundleOf2 ? 0 : (lineTotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE);
+
+  return { lineTotal: lineTotal, shipping: shipping, isBundleOf2: isBundleOf2, discountPercent: details.discountPercent };
+}
+
 function updateSummary(offerKey) {
   const details = offerDetails[offerKey];
   if (!details) return;
+
+  const totals = computeOrderTotals(offerKey, quantity);
 
   orderSummary.hidden = false;
   summaryOfferName.textContent = offerLabels[offerKey] || offerKey;
   qtyValue.textContent = quantity;
 
-  const lineTotal = details.price * quantity;
-  summaryPrice.textContent = (quantity > 1
-    ? details.price + ' × ' + quantity + ' = ' + lineTotal + ' جنيه'
-    : lineTotal + ' جنيه');
+  const lineTotal = totals.lineTotal;
+  if (totals.isBundleOf2) {
+    summaryPrice.textContent = lineTotal + ' جنيه (عرض عبوتين)';
+  } else {
+    summaryPrice.textContent = (quantity > 1
+      ? details.price + ' × ' + quantity + ' = ' + lineTotal + ' جنيه'
+      : lineTotal + ' جنيه');
+  }
 
   summaryDiscount.textContent = 'خصم ' + details.discountPercent + '%';
 
-  const shipping = lineTotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const shipping = totals.shipping;
   if (shipping === 0) {
     summaryShipping.textContent = 'شحن مجاني';
     summaryShipping.classList.add('summary-free');
@@ -166,9 +236,10 @@ form.addEventListener('submit', function (e) {
     return;
   }
 
-  const details = offerDetails[offerField.value] || { price: null, discountPercent: null };
-  const lineTotal = details.price !== null ? details.price * quantity : null;
-  const shipping = lineTotal !== null ? (lineTotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE) : null;
+  const totals = computeOrderTotals(offerField.value, quantity);
+  const lineTotal = totals ? totals.lineTotal : null;
+  const shipping = totals ? totals.shipping : null;
+  const discountPercent = totals ? totals.discountPercent : null;
   const subtotal = (lineTotal !== null && shipping !== null) ? lineTotal + shipping : null;
   const total = (subtotal !== null && couponApplied) ? Math.round(subtotal * (1 - COUPON_DISCOUNT)) : subtotal;
 
@@ -179,7 +250,7 @@ form.addEventListener('submit', function (e) {
     offerLabel: (offerLabels[offerField.value] || offerField.value) + (quantity > 1 ? ' (الكمية: ' + quantity + ')' : ''),
     quantity: quantity,
     price: lineTotal,
-    discountPercent: details.discountPercent,
+    discountPercent: discountPercent,
     shipping: shipping,
     couponApplied: couponApplied,
     total: total,

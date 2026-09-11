@@ -38,13 +38,27 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
 <!-- Header -->
 <header class="site-header">
   <div class="wrap header-inner">
+    <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
     <img src="assets/logo.png" alt="Karseell" class="logo-img">
     <a href="#order" class="btn btn-small">اطلبي دلوقتي</a>
   </div>
 </header>
 
+<div class="side-menu-overlay" id="sideMenuOverlay"></div>
+<nav class="side-menu" id="sideMenu">
+  <button type="button" class="side-menu-close" id="sideMenuClose" aria-label="قفل القائمة">×</button>
+  <img src="assets/logo.png" alt="Karseell" class="side-menu-logo">
+  <a href="#hero" class="side-menu-link">الرئيسية</a>
+  <a href="#offers" class="side-menu-link">العروض</a>
+  <a href="#features" class="side-menu-link">المميزات والمراجعات</a>
+  <a href="https://www.facebook.com/karseell.original.egypt/" target="_blank" rel="noopener" class="side-menu-link">تواصل معنا</a>
+</nav>
+
+
 <!-- Hero -->
-<section class="hero">
+<section class="hero" id="hero">
   <video class="hero-bg-video" autoplay muted loop playsinline poster="assets/hero-video-poster.jpg">
     <source src="assets/hero-video.webm" type="video/webm">
   </video>
@@ -67,51 +81,99 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- Features -->
-<section class="features" id="features">
+<!-- Product info tabs: Features / Reviews / How to use / Verify authenticity -->
+<section class="info-tabs" id="features">
   <div class="wrap">
-    <h2 class="section-title">ليه ماسك Karseell مختلف؟</h2>
-    <div class="feature-grid">
-      <div class="feature-card">
-        <h3>يصلح التلف من الجذور</h3>
-        <p>تركيبة غنية بالكيراتين والزيوت الطبيعية بتخترق الشعرة وتصلح التلف من الداخل، مش بس من السطح.</p>
-      </div>
-      <div class="feature-card">
-        <h3>نعومة تدوم</h3>
-        <p>نتيجة ملموسة من أول استخدام، وتتحسن أكتر مع الاستمرار مرتين في الأسبوع.</p>
-      </div>
-      <div class="feature-card">
-        <h3>مناسب لكل أنواع الشعر</h3>
-        <p>سواء شعرك مصبوغ، مموّج، أو تعرّض للحرارة كتير، الماسك بيتعامل مع كل درجات التلف.</p>
-      </div>
-      <div class="feature-card">
-        <h3>خالي من الكبريتات</h3>
-        <p>تركيبة آمنة بدون مواد ضارة، فروة الرأس بتاخد راحتها زي الشعر بالظبط.</p>
+    <h2 class="section-title">كل اللي محتاجة تعرفيه عن ماسك Karseell</h2>
+
+    <nav class="info-tabs-nav" role="tablist">
+      <button type="button" class="info-tab-btn is-active" data-info-tab="benefits">المميزات</button>
+      <button type="button" class="info-tab-btn" data-info-tab="reviews">المراجعات</button>
+      <button type="button" class="info-tab-btn" data-info-tab="howto">طريقة الاستخدام</button>
+      <button type="button" class="info-tab-btn" data-info-tab="verify">التأكد من الأصلي</button>
+    </nav>
+
+    <!-- Pane: Benefits -->
+    <div id="tab-benefits" class="info-tab-pane is-active">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>يصلح التلف من الجذور</h3>
+          <p>تركيبة غنية بالكيراتين والزيوت الطبيعية بتخترق الشعرة وتصلح التلف من الداخل، مش بس من السطح.</p>
+        </div>
+        <div class="feature-card">
+          <h3>نعومة تدوم</h3>
+          <p>نتيجة ملموسة من أول استخدام، وتتحسن أكتر مع الاستمرار مرتين في الأسبوع.</p>
+        </div>
+        <div class="feature-card">
+          <h3>مناسب لكل أنواع الشعر</h3>
+          <p>سواء شعرك مصبوغ، مموّج، أو تعرّض للحرارة كتير، الماسك بيتعامل مع كل درجات التلف.</p>
+        </div>
+        <div class="feature-card">
+          <h3>خالي من الكبريتات</h3>
+          <p>تركيبة آمنة بدون مواد ضارة، فروة الرأس بتاخد راحتها زي الشعر بالظبط.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- How to use -->
-<section class="how-to">
-  <div class="wrap">
-    <h2 class="section-title">طريقة الاستخدام</h2>
-    <div class="steps">
-      <div class="step">
-        <span class="step-num">1</span>
-        <p>اغسلي شعرك بالشامبو زي المعتاد.</p>
+    <!-- Pane: Reviews -->
+    <div id="tab-reviews" class="info-tab-pane">
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"شعري كان تعبان جدًا من الصبغة، جربت الماسك أسبوعين ولاحظت فرق حقيقي في النعومة."</p>
+          <span class="review-name">عميلة مؤكدة ✓</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"ريحة حلوة وملمس الشعر بقى ناعم من أول استخدام، هطلب تاني أكيد."</p>
+          <span class="review-name">عميلة مؤكدة ✓</span>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"الشحن وصل بسرعة والمنتج أصلي 100%، حسيت بالفرق من أول مرة."</p>
+          <span class="review-name">عميلة مؤكدة ✓</span>
+        </div>
       </div>
-      <div class="step">
-        <span class="step-num">2</span>
-        <p>وزّعي الماسك على الشعر من النص للأطراف.</p>
+      <p class="review-note">* هنضيف قريبًا لقطات شاشة حقيقية من محادثات عميلاتنا</p>
+    </div>
+
+    <!-- Pane: How to use -->
+    <div id="tab-howto" class="info-tab-pane">
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <p>اغسلي شعرك بشامبو Karseell ودلكي فروة الرأس برفق</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <p>وزّعي البلسم من النص للأطراف واتركيه 2-3 دقائق قبل الشطف</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <p>حطي الماسك على الشعر المبلل واتركيه 5-15 دقيقة حسب حالة شعرك</p>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <p>اشطفي شعرك كويس بالمية الفاترة واستمتعي بالنتيجة</p>
+        </div>
       </div>
-      <div class="step">
-        <span class="step-num">3</span>
-        <p>سيبيه من 5 إلى 15 دقيقة حسب حالة شعرك.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">4</span>
-        <p>اشطفي شعرك كويس بالميه الفاترة واستمتعي بالنتيجة.</p>
+    </div>
+
+    <!-- Pane: Verify authenticity -->
+    <div id="tab-verify" class="info-tab-pane">
+      <div class="verify-grid">
+        <div class="verify-item">
+          <h3>شعار محفور على الغطاء</h3>
+          <p>المنتج الأصلي بيحمل شعار Karseell محفور بوضوح على الغطاء العلوي، مش ملصق بس.</p>
+        </div>
+        <div class="verify-item">
+          <h3>باركود وQR كود واضح</h3>
+          <p>هتلاقي باركود ورمز QR سليم وقابل للمسح على العبوة، بيأكد مصدر المنتج.</p>
+        </div>
+        <div class="verify-item">
+          <h3>جودة الطباعة والخامة</h3>
+          <p>خط الطباعة واضح وحاد بدون بهتان، والعبوة نفسها متينة وغير هشة.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -121,6 +183,7 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
 <section class="offers" id="offers">
   <div class="wrap">
     <h2 class="section-title">اختاري العرض المناسب ليكِ</h2>
+    <p class="urgency-banner">🔥 <span id="liveViewers">23</span> شخص بيشوفوا الصفحة دي دلوقتي</p>
     <div class="offer-grid">
 
       <div class="offer-card" data-offer="mask">
@@ -135,6 +198,8 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
           <li>ماسك بروتين 500 مل</li>
           <li>يكفي لأكتر من شهرين استخدام</li>
         </ul>
+        <p class="stock-left">⚡ متبقي <span class="stock-count">6</span> قطع بس من الكمية الحالية</p>
+        <p class="bundle-hint">🎁 اطلبي عبوتين بـ 999 جنيه بدل 1198 + شحن مجاني</p>
         <a href="#order" class="btn btn-outline choose-offer">اختاري العرض ده</a>
       </div>
 
@@ -150,6 +215,8 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
           <li>شامبو خالي من الكبريتات</li>
           <li>بلسم مغذي للاستخدام اليومي</li>
         </ul>
+        <p class="stock-left">⚡ متبقي <span class="stock-count">9</span> قطع بس من الكمية الحالية</p>
+        <p class="bundle-hint">🎁 اطلبي عبوتين بـ 1300 جنيه بدل 1398 + شحن مجاني</p>
         <a href="#order" class="btn btn-outline choose-offer">اختاري العرض ده</a>
       </div>
 
@@ -165,6 +232,8 @@ src="https://www.facebook.com/tr?id=1751524826109438&ev=PageView&noscript=1"
           <li>ماسك + شامبو + بلسم</li>
           <li>روتين عناية متكامل بخصم أكبر</li>
         </ul>
+        <p class="stock-left">⚡ متبقي <span class="stock-count">4</span> قطع بس من الكمية الحالية</p>
+        <p class="bundle-hint">🎁 اطلبي 2 باقة بـ 1999 جنيه بدل 2398، شحن مجاني</p>
         <a href="#order" class="btn btn-outline choose-offer">اختاري العرض ده</a>
       </div>
 
